@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const server = require("../server.js")
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -14,6 +15,7 @@ const connection = mysql.createConnection({
       return;
     }
     console.log("connected as id " + connection.threadId);
+   server.init();
   });
   
   module.exports = connection;
