@@ -1,13 +1,14 @@
 const inquirer = require("inquirer");
 const orm = require("./config/orm.js");
-
+const helper = require("./config/helper.js");
 const init = () => {
   inquirer
     .prompt([
       {
         name: "welcome",
         type: "input",
-        message: "Welcome to the Employee Tracker!",
+        message:
+          "Welcome to the Employee Tracker! Press Enter/Return to continue!",
       },
       {
         name: "options",
@@ -20,7 +21,7 @@ const init = () => {
         ],
       },
     ])
-    .then(answers => {
+    .then((answers) => {
       if (answers.options === "View a specific table") {
         viewTable();
       } else if (
@@ -33,11 +34,10 @@ const init = () => {
         connection.end();
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
-      init();
     });
-}
+};
 
 const viewTable = () => {
   inquirer
@@ -47,23 +47,44 @@ const viewTable = () => {
       message: "Which one of the following tables would you like to view?",
       choices: ["Employees", "Roles", "Departments"],
     })
-    .then(answers => {
+    .then((answers) => {
       if (answers.view === "Employees") {
         orm.select("employee");
-        init();
       } else if (answers.view === "Roles") {
         orm.select("role");
-        init();
       } else if (answers.view === "Departments") {
         orm.select("department");
-        init();
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       init();
     });
-}
+};
 
- 
+const addData = () => {
+  inquirer
+    .prompt({
+      name: "tables",
+      type: "list",
+      message: "To which of the following tables would you like to add data?",
+      choices: ["Departments", "Roles", "Employees"],
+    })
+    .then((answers) => {
+      if (answers.tables === "Employees") {
+        helper.addEmployee();
+      }
+      if (answers.tables === "Roles") {
+        helper.addRole();
+      }
+      if (answers.tables === "Departments") {
+        helper.addDep();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      init();
+    });
+};
+
 exports.init = init;
