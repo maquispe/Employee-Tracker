@@ -351,9 +351,47 @@ const deleteEmployee = () => {
 };
 
 const deleteRole = () => {
-
+  let roleArray = [];
+  connection.query("SELECT id, title FROM role", (err, res) => {
+    if (err) throw err;
+    res.map(role => roleArray.push(role.id + " " + role.title));
+    inquirer
+      .prompt({
+        name: "role",
+        type: "list",
+        message: "Which role would you like to remove?",
+        choices: roleArray
+      })
+      .then(answer => {
+        let roleChoice = answer.role.split(" ");
+        connection.query("DELETE FROM role WHERE id= ?", [roleChoice[0]], (err, response) => {
+          if(err) throw err;
+          console.log("Role successfully eliminated!")
+          init();
+        })
+      });
+  });
 };
 
 const deleteDepartment = () => {
-
+  let departmentArray = [];
+  connection.query("SELECT id, name FROM department", (err, res) => {
+    if (err) throw err;
+    res.map(department => departmentArray.push(department.id + " " + department.name));
+    inquirer
+      .prompt({
+        name: "depName",
+        type: "list",
+        message: "Which department would you like to remove?",
+        choices: departmentArray
+      })
+      .then(answer => {
+        let depChoice = answer.depName.split(" ");
+        connection.query("DELETE FROM department WHERE id= ?", [depChoice[0]], (err, response) => {
+          if(err) throw err;
+          console.log("Department successfully eliminated!")
+          init();
+        })
+      });
+  });
 };
