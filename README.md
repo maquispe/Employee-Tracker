@@ -14,7 +14,17 @@ After downloading the program, run npm install to obtain the required Node.js de
 
 ## Usage
 
-The user is first greeted into the main menu. They have a variety of options to pick from, including viewing, adding and deleting departments, roles and employees, as well as updating employee roles.
+![](Assets/employee-tracker.gif)
+
+The user is first greeted into the main menu. 
+
+![](Assets/Screenshot-1.png)
+
+They have a variety of options to pick from, including viewing, adding and deleting departments, roles and employees, as well as updating employee roles.
+
+![](Assets/Screenshot-2.png)
+
+![](Assets/Screenshot-3.png)
 
 ## License
 
